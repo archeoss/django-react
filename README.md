@@ -1,1 +1,1 @@
-# dlango-learn
+# django-learn
