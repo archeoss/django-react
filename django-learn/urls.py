@@ -19,6 +19,6 @@ from customers import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'^api/customers/$', views.customers_list),
-    path(r'^api/customers/(?P<pk>[0-9]+)$', views.customers_detail),
+    path('api/customers/', views.customers_list),
+    path('api/customers/<int:pk>', views.customers_detail),
 ]

@@ -22,6 +22,7 @@ def customers_list(req):
         customers = Customer.objects.all()
         page = req.GET.get('page', 1)
         paginator = Paginator(customers, 10)
+
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
@@ -30,6 +31,7 @@ def customers_list(req):
             data = paginator.page(paginator.num_pages)
 
         serializer = CustomerSerializer(data, context={'request': req}, many=True)
+
         if data.has_next():
             nextPage = data.next_page_number()
         if data.has_previous():
@@ -38,8 +40,8 @@ def customers_list(req):
         res = Response({'data': serializer.data,
                         'count': paginator.count,
                         'numpages': paginator.num_pages,
-                        'nextlink': f'/api/cutomers/?page={nextPage}',
-                        'prevlink': f'/api/cutomers/?page={prevPage}'})
+                        'nextlink': f'/api/customers/?page={nextPage}',
+                        'prevlink': f'/api/customers/?page={prevPage}'})
     elif req.method == 'POST':
         serializer = CustomerSerializer(data=req.data)
         if serializer.is_valid():

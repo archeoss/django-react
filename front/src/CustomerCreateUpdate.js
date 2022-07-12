@@ -1,66 +1,57 @@
-import React, {Component} from "react";
+import React, {useEffect, useState} from "react";
 import CustomerService from "./CustomerService";
+import {useParams} from "react-router-dom";
 
 const customersService = new CustomerService();
 
-class CustomerCreateUpdate extends Component
+function CustomerCreateUpdate(props)
 {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            firstName: null,
-            lastName: null,
-            phone: null,
-            email: null,
-            address: null,
-            desc: null
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+    const [description, setDescription] = useState('');
 
-    handleSubmit(event)
-    {
-        const { match: { params } } = this.props;
-        if (params && params.pk)
+    let { pk } = useParams();
+    const handleSubmit = (event) => {
+        if (pk)
         {
-            this.handleUpdate(params.pk)
+            handleUpdate(pk)
         }
         else
         {
-            this.handleCreate();
+            handleCreate();
         }
         event.preventDefault();
     }
 
-    handleCreate()
-    {
+    const handleCreate = () => {
         customersService.createCustomer(
             {
-                "first_name": this.state.firstName,
-                "last_name": this.state.lastName,
-                "email": this.state.email,
-                "phone": this.state.phone,
-                "address": this.state.address,
-                "description": this.state.description,
+                "first_name": firstName,
+                "last_name": lastName,
+                "email": email,
+                "phone": phone,
+                "address": address,
+                "description": description,
             }).then((result) => {
                 alert("Customer created.");
         }).catch(() => {
-            alert('ERROR! Re-check your form.')
+            alert('ERROR! Re-check your form.');
         });
     }
 
-    handleUpdate(pk)
-    {
-        customersService.createCustomer(
+    const handleUpdate = (pk) => {
+        customersService.updateCustomer(
             {
                 "pk": pk,
-                "first_name": this.state.firstName,
-                "last_name": this.state.lastName,
-                "email": this.state.email,
-                "phone": this.state.phone,
-                "address": this.state.address,
-                "description": this.state.description,
+                "first_name": firstName,
+                "last_name": lastName,
+                "email": email,
+                "phone": phone,
+                "address": address,
+                "description": description,
             }).then((result) => {
                 alert("Customer updated.");
         }).catch(() => {
@@ -68,50 +59,49 @@ class CustomerCreateUpdate extends Component
         });
     }
 
-    componentDidMount()
-    {
-        const { match: { params } } = this.props;
-        if (params && params.pk )
+    useEffect( () => {
+        if (pk)
         {
-            customersService.getCustomer(params.pk).then((c) => {
-                this.setState({
-                    "first_name": c.firstName,
-                    "last_name": c.lastName,
-                    "email": c.email,
-                    "phone": c.phone,
-                    "address": c.address,
-                    "description": c.description,
-                });
+            customersService.getCustomer(pk).then((c) => {
+                    setFirstName(c.first_name);
+                    setLastName(c.last_name);
+                    setEmail(c.email);
+                    setPhone(c.phone);
+                    setAddress(c.address);
+                    setDescription(c.description);
             })
         }
-    }
+    }, []);
 
-    render()
-    {
-        return(
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label>First Name:</label>
-                    <input className="form-control" type="text" ref={input => this.setState({ firstName: input })}/>
+    return(
+        <form onSubmit={handleSubmit}>
+            <div className="form-group">
+                <label>First Name:</label>
+                <input className="form-control" type="text" defaultValue={firstName}
+                       onChange={input => setFirstName(input !== null ? input.target.value : firstName) }/>
 
-                    <label>Last Name:</label>
-                    <input className="form-control" type="text" ref={input => this.setState({ lastName: input })}/>
+                <label>Last Name:</label>
+                <input className="form-control" type="text" defaultValue={lastName}
+                       onChange={input => setLastName(input !== null ? input.target.value : lastName) }/>
 
-                    <label>Phone:</label>
-                    <input className="form-control" type="text" ref={input => this.setState({ phone: input })}/>
+                <label>Phone:</label>
+                <input className="form-control" type="text" defaultValue={phone}
+                       onChange={input => setPhone(input !== null ? input.target.value : phone) }/>
 
-                    <label>Email:</label>
-                    <input className="form-control" type="text" ref={input => this.setState({ email: input })}/>
+                <label>Email:</label>
+                <input className="form-control" type="text" defaultValue={email}
+                       onChange={input => setEmail(input !== null ? input.target.value : email) }/>
 
-                    <label>Address:</label>
-                    <input className="form-control" type="text" ref={input => this.setState({ address: input })}/>
+                <label>Address:</label>
+                <input className="form-control" type="text" defaultValue={address}
+                       onChange={input => setAddress(input !== null ? input.target.value : address) }/>
 
-                    <label>Description:</label>
-                    <textarea className="form-control" ref={input => this.setState({ description: input })}/>
-                    <input className="btn btn-primary" type="submit" value="Submit"/>
-                </div>
-            </form>
-        );
-    }
+                <label>Description:</label>
+                <textarea className="form-control" defaultValue={description}
+                          onChange={input => setDescription(input !== null ? input.target.value : description) }/>
+                <input className="btn btn-primary" type="submit" value="Submit"/>
+            </div>
+        </form>
+    );
 }
 export default CustomerCreateUpdate;

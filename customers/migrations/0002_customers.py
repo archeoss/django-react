@@ -10,7 +10,7 @@ def create_data(apps, schema_editor):
              email="customer001@email.com",
              phone="00000000",
              address="Customer 000 Address",
-             desc="Customer 001 desc").save()
+             description="Customer 001 desc").save()
 
 class Migration(migrations.Migration):
 

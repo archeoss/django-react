@@ -13,5 +13,5 @@ class CustomerSerializer(serializers.ModelSerializer):
             'email',
             'phone',
             'address',
-            'desc'
+            'description'
         )

@@ -9,7 +9,7 @@ class Customer(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     address = models.TextField(blank=True, null=True)
-    desc = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
     def __str__(self):
