@@ -1,4 +1,5 @@
-import React, {useEffect, Component, useState} from 'react';
+import * as React from 'react';
+import {useEffect, Component, useState} from 'react';
 import CustomerService from './CustomerService';
 
 const customersService = new CustomerService();

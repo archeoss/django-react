@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import CustomersList from "./CustomersList";
-import CustomerCreateUpdate from "./CustomerCreateUpdate";
+import * as React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CustomersList from "./customers/CustomersList";
+import CustomerCreateUpdate from "./customers/CustomerCreateUpdate";
 import './App.css';
 
 const BaseLayout = () => (
@@ -22,9 +22,9 @@ const BaseLayout = () => (
         </nav>
         <div className="content">
             <Routes>
-                <Route path="/" exact element={<CustomersList />} />
-                <Route path="/customers/:pk" exact element={<CustomerCreateUpdate />} />
-                <Route path="/customers/" exact element={<CustomerCreateUpdate />} />
+                <Route path="/" element={<CustomersList />} />
+                <Route path="/customers/:pk" element={<CustomerCreateUpdate />} />
+                <Route path="/customers/" element={<CustomerCreateUpdate />} />
             </Routes>
         </div>
     </div>
