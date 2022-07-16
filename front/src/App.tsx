@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomersList from "./customers/CustomersList";
 import CustomerCreateUpdate from "./customers/CustomerCreateUpdate";
 import './App.css';
+import Main from './main/Main';
 
 const BaseLayout = () => (
     <div className="container-fluid">
@@ -30,11 +31,12 @@ const BaseLayout = () => (
     </div>
 )
 
-function App(props)
+function App(props : any)
 {
     return (
         <BrowserRouter>
-            <BaseLayout />
+            {/* <BaseLayout /> */}
+            <Main />
         </BrowserRouter>
     );
 }

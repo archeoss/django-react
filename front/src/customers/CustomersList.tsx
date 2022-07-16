@@ -4,7 +4,7 @@ import CustomerService from './CustomerService';
 
 const customersService = new CustomerService();
 
-function CustomersList(props)
+function CustomersList(props : any)
 {
     const [customers, setCustomers] = useState([]);
     const [nextPageURL, setNextPageURL] = useState('');
@@ -18,9 +18,9 @@ function CustomersList(props)
         });
     }, []);
 
-    const handleDelete = (e, pk) => {
+    const handleDelete = (e : React.MouseEvent<HTMLButtonElement>, pk : string) => {
         customersService.deleteCustomer({pk : pk}).then(() => {
-            let newArr = customers.filter(function (obj)
+            let newArr = customers.filter(function (obj : any)
             {
                return obj.pk !== pk;
             });
@@ -51,7 +51,7 @@ function CustomersList(props)
                 </tr>
                 </thead>
                 <tbody>
-                    {customers.map( c =>
+                    {customers.map( (c: any)  =>
                     <tr key={c.pk}>
                         <td>{c.pk}</td>
                         <td>{c.first_name}</td>

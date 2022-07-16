@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 
 const customersService = new CustomerService();
 
-function CustomerCreateUpdate(props)
+function CustomerCreateUpdate(props : any)
 {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -13,9 +13,9 @@ function CustomerCreateUpdate(props)
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
     const [description, setDescription] = useState('');
-
+    
     let { pk } = useParams();
-    const handleSubmit = (event) => {
+    const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         if (pk)
         {
             handleUpdate(pk)
@@ -43,7 +43,7 @@ function CustomerCreateUpdate(props)
         });
     }
 
-    const handleUpdate = (pk) => {
+    const handleUpdate = (pk : string) => {
         customersService.updateCustomer(
             {
                 "pk": pk,

@@ -9,24 +9,24 @@ export default class CustomersService{
 		const url = `${API_URL}/api/customers/`;
 		return axios.get(url).then(response => response.data);
 	}
-	getCustomersByURL(link){
+	getCustomersByURL(link : string){
 		const url = `${API_URL}${link}`;
 		console.log(url);
 		return axios.get(url).then(response => response.data);
 	}
-	getCustomer(pk) {
+	getCustomer(pk : string) {
 		const url = `${API_URL}/api/customers/${pk}`;
 		return axios.get(url).then(response => response.data);
 	}
-	deleteCustomer(customer){
+	deleteCustomer(customer : any){
 		const url = `${API_URL}/api/customers/${customer.pk}`;
 		return axios.delete(url);
 	}
-	createCustomer(customer){
+	createCustomer(customer : any){
 		const url = `${API_URL}/api/customers/`;
 		return axios.post(url,customer);
 	}
-	updateCustomer(customer){
+	updateCustomer(customer : any){
 		const url = `${API_URL}/api/customers/${customer.pk}`;
 		return axios.put(url,customer);
 	}
